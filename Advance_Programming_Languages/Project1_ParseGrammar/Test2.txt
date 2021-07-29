@@ -1,0 +1,6 @@
+Window "Project 1" (300, 450) Layout Flow:
+Group Radio "123";
+Radio "456";
+Radio "789";
+End;
+End.

@@ -1,0 +1,22 @@
+#login-btn {
+  color: white;
+}
+
+.small {
+  text-align: right;
+}
+
+.failed {
+  text-align: left;
+  color: rgb(187, 55, 55);
+}
+
+#login-form-container {
+  padding-top: 10vh;
+  display: flex;
+  justify-content: center;
+}
+
+#login-form {
+  max-width: 450px;
+}

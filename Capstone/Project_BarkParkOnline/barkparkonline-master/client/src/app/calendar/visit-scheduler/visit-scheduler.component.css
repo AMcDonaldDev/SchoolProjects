@@ -1,0 +1,59 @@
+#visit-scheduler {
+  min-height: 500px;
+  min-width: 700px;
+}
+
+.mat-header-cell {
+  font-size: 10pt;
+}
+
+th {
+  background-color: rgb(9, 51, 87);
+  color: white;
+}
+
+.save-btn {
+  height: 24px;
+  width: 32px;
+  color: white;
+  padding: 4px !important;
+  font-size: 7pt;
+}
+
+.cancel-btn {
+  height: 24px;
+  width: 36px;
+  color: white;
+  padding: 4px !important;
+  font-size: 7pt;
+}
+
+.x-btn {
+  height: 24px;
+  width: 24px;
+  color: white;
+  padding: 4px !important;
+  font-size: 7pt;
+}
+.edit-btn {
+  height: 24px;
+  width: 32px;
+  padding: 4px !important;
+}
+
+.mat-icon {
+  font-size: 14pt;
+  margin-top: -3px;
+}
+
+.mat-cell {
+  margin-left: 10px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  height: 75px !important;
+}
+
+::ng-deep .mat-form-field-flex {
+  height: 55px !important;
+}

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>A Few of My Favorite Things</title>
+        <style>
+        </style>
+        <script src="three.min.js"></script>
+        <script>
+        /* File: project-three.html
+         * Author: Allison McDonald
+         * Date: 6/30/2020
+         * This is a 3D animated scene composed of Three.js components
+         * The scene contains 6 shapes and 2 light sources
+         * The animation can be turned on by checking the box beside Animate
+         * Code from modeling-starter.html was used for rendering, animation, and key presses
+         */
+            
+            "use strict";
+            
+            var scene, camera, renderer;
+            var canvas;
+            var model;
+            
+            var torusKnotRotator;
+            var iceCreamConeRotator;
+            var glassBoxesRotator;
+            var ringRotator;
+            var trophyRotator;
+            var birdHouseRotator;
+            var xyzRotation = Math.PI/360;
+            var animating = false;
+            
+            function createWorld() {
+                renderer.setClearColor(0x788082);
+                scene = new THREE.Scene();
+                
+                camera = new THREE.PerspectiveCamera(105, canvas.width/canvas.height, 1, 200);
+                camera.position.z = 20;
+                
+                var viewpointLight = new THREE.DirectionalLight(0xFFFFFF, 0.5);
+                viewpointLight.position.set(10, 10, 1);
+                scene.add(viewpointLight);
+                
+                var ambientLight = new THREE.AmbientLight(0x969696);
+                scene.add(ambientLight);
+                
+                model = new THREE.Object3D();
+                model.add(drawNeonTorusKnot());
+                model.add(drawIceCreamCone());
+                model.add(drawGlassBoxes());
+                model.add(drawRing());
+                model.add(drawTrophy());
+                model.add(drawBirdHouse());
+                scene.add(model);
+            }
+            
+            /* Render the scene */
+            function render() {
+                renderer.render(scene, camera);
+            }
+            
+            /* init() function is called by the onload event when the document has loaded */
+            function init() {
+                try {
+                    canvas = document.getElementById("glcanvas");
+                    renderer = new THREE.WebGLRenderer({
+                        canvas: canvas,
+                        antialias: true
+                    });
+                }
+                catch(e) {
+                    document.getElementByID("canvas-holder").innerHTML = 
+                            "<h3><b>Sorry, WebGL is required, but is not available.</b><h3>";
+                    return;
+                }
+                document.addEventListener("keydown", doKey, false);
+                document.getElementById("animate").checked = false;
+                document.getElementById("animate").onchange = doAnimateCheckbox;
+                createWorld();
+                render();
+            }
+            
+            /* Animation */
+            function updateForFrame() {
+                torusKnotRotator.rotation.x += xyzRotation;
+                torusKnotRotator.rotation.y -= xyzRotation;
+                torusKnotRotator.rotation.z += xyzRotation;
+                iceCreamConeRotator.rotation.x -= xyzRotation;
+                iceCreamConeRotator.rotation.y += xyzRotation;
+                iceCreamConeRotator.rotation.z -= xyzRotation;
+                glassBoxesRotator.rotation.x += xyzRotation;
+                glassBoxesRotator.rotation.y += xyzRotation;
+                glassBoxesRotator.rotation.z += xyzRotation;
+                ringRotator.rotation.x -= xyzRotation;
+                ringRotator.rotation.y += xyzRotation;
+                ringRotator.rotation.z -= xyzRotation;
+                trophyRotator.rotation.x += xyzRotation;
+                trophyRotator.rotation.y += xyzRotation;
+                trophyRotator.rotation.z += xyzRotation;
+                birdHouseRotator.rotation.x += xyzRotation;
+                birdHouseRotator.rotation.y -= xyzRotation;
+                birdHouseRotator.rotation.z += xyzRotation;
+            }
+            
+            function doFrame() {
+                if(animating) {
+                    updateForFrame();
+                    render();
+                    requestAnimationFrame(doFrame);
+                }
+            }
+            
+            function doAnimateCheckbox() {
+                var anim = document.getElementById("animate").checked;
+                if(anim != animating) {
+                    animating = anim;
+                    if(animating) {
+                        doFrame();
+                    }
+                }
+            }
+            
+            function doKey(event) {
+                var code = event.keyCode;
+                var rotated = true;
+                switch(code) {
+                    case 37: model.rotation.y -= 0.05; break;  // left arrow
+                    case 39: model.rotation.y += 0.05; break;  // right arrow
+                    case 38: model.rotation.x -= 0.05; break;  // up arrow
+                    case 40: model.rotation.x += 0.05; break;  // down arrow
+                    case 33: model.rotation.z -= 0.05; break;  // page up
+                    case 34: model.rotation.z += 0.05; break;  // page down
+                    case 36: model.rotation.set(0, 0, 0); break;  // home
+                    default: rotated = false;
+                }
+                if(rotated) {
+                    event.preventDefault();
+                    if(!animating) {
+                        render();
+                    }
+                }
+            }
+
+            /* Function to create Neon Torus Knot */
+            function drawNeonTorusKnot() {
+                var geometry = new THREE.TorusKnotGeometry(2, 0.3, 225, 15, 4, 7);
+                var material = new THREE.MeshLambertMaterial({
+                    color: 0x29D8DB,
+                    emissive: 0x513D4F
+                });
+                var torusKnot = new THREE.Mesh(geometry, material);
+                torusKnot.position.set(-20, 10, -5);
+                torusKnot.scale.set(1.2, 1.2, 1.2);
+                torusKnotRotator = new THREE.Object3D();
+                torusKnotRotator.add(torusKnot);
+                return torusKnotRotator;
+            }
+            
+            /* Function to create an Icecream Cone */
+            function drawIceCreamCone() {
+                var geometry1 = new THREE.CylinderGeometry(1, 0, 3, 8, 1);
+                var material1 = new THREE.MeshLambertMaterial({
+                    color: 0xD7CA37
+                });
+                var cone = new THREE.Mesh(geometry1, material1);
+                var geometry2 = new THREE.SphereGeometry(1.3, 32, 6);
+                var material2 = new THREE.MeshPhongMaterial({
+                    color: 0xE66B6B,
+                    shininess: 15.0
+                });
+                var iceCream = new THREE.Mesh(geometry2, material2);
+                iceCream.position.set(0, 1.5, 0);
+                var iceCreamCone = new THREE.Group();
+                iceCreamCone.add(cone);
+                iceCreamCone.add(iceCream);
+                iceCreamCone.position.set(-15, 0, -3);
+                iceCreamConeRotator = new THREE.Object3D();
+                iceCreamConeRotator.add(iceCreamCone);
+                return iceCreamConeRotator;
+            }
+            
+            /* Function to create Glass Boxes */
+            function drawGlassBoxes() {
+                var geometry = new THREE.BoxGeometry(1, 1, 1);
+                var material = new THREE.MeshPhongMaterial({
+                    color: 0x53C6AF,
+                    specular: 0x98E2D9,
+                    shininess: 45.0,
+                    opacity: 0.5,
+                    transparent: true
+                });
+                var cube1 = new THREE.Mesh(geometry, material);
+                cube1.rotation.set(Math.PI/4, Math.PI/2, 0);
+                var cube2 = new THREE.Mesh(geometry, material);
+                cube2.rotation.set(Math.PI/4, Math.PI/2, 0);
+                cube2.position.set(1, 0, 1);
+                var cube3 = new THREE.Mesh(geometry, material);
+                cube3.rotation.set(Math.PI/4, Math.PI/2, 0);
+                cube3.position.set(-1, 0, 1);
+                var groupCubes = new THREE.Group();
+                groupCubes.add(cube1);
+                groupCubes.add(cube2);
+                groupCubes.add(cube3);
+                groupCubes.scale.set(2.5, 2.5, 2.5);
+                groupCubes.rotation.set(0.8, 1, -0.5);
+                groupCubes.position.set(-15, -5, -1);
+                glassBoxesRotator = new THREE.Object3D();
+                glassBoxesRotator.add(groupCubes);
+                return glassBoxesRotator;
+            }
+            
+            /* Function to create Ring */
+            function drawRing() {
+                var geometry1 = new THREE.TorusGeometry(1, 0.1, 16, 32);
+                var material1 = new THREE.MeshPhongMaterial({
+                    color: 0xC3C3C6,
+                    shininess: 50.0
+                });
+                var band = new THREE.Mesh(geometry1, material1);
+                var geometry2 = new THREE.IcosahedronGeometry(0.4, 0);
+                var material2 = new THREE.MeshPhongMaterial({
+                    color: 0x2C82DD,
+                    specular: 0x75A0F0,
+                    shininess: 75.0
+                });
+                var stone = new THREE.Mesh(geometry2, material2);
+                stone.position.set(0, 1.34, 0);
+                var ring = new THREE.Group();
+                ring.add(band);
+                ring.add(stone);
+                ring.scale.set(2, 2, 2);
+                ring.position.set(10, 9, 4);
+                ringRotator = new THREE.Object3D();
+                ringRotator.add(ring);
+                return ringRotator;
+            }
+            
+            /* Function to create Trophy */
+            function drawTrophy() {
+                var geometry1 = new THREE.CylinderGeometry(1, 3, 5, 32);
+                var material1 = new THREE.MeshPhongMaterial({
+                    color: 0xE3CB2B,
+                    specular: 0xE0DA3E,
+                    shininess: 200.0
+                });
+                var base = new THREE.Mesh(geometry1, material1);
+                var geometry2 = new THREE.OctahedronGeometry(2, 0);
+                var material2 = new THREE.MeshNormalMaterial();
+                var top = new THREE.Mesh(geometry2, material2);
+                top.position.set(0, 4.7, 0);
+                var trophy = new THREE.Group();
+                trophy.add(base);
+                trophy.add(top);
+                trophy.position.set(10, -2, -4);
+                trophyRotator = new THREE.Object3D();
+                trophyRotator.add(trophy);
+                return trophyRotator;
+            }
+            
+            /* Function to create Bird House */
+            function drawBirdHouse() {
+                var geometry1 = new THREE.CylinderGeometry(3, 3, 5, 5);
+                var material1 = new THREE.MeshLambertMaterial({
+                    color: 0x7E83C8
+                });
+                var outer = new THREE.Mesh(geometry1, material1);
+                outer.rotation.set(-Math.PI/2, 0, 0);
+                var geometry2 = new THREE.CylinderGeometry(1, 1, 5, 5);
+                var material2 = new THREE.MeshLambertMaterial({
+                    color: 0x3B403D
+                });
+                var inner = new THREE.Mesh(geometry2, material2);
+                inner.position.set(0, 0, 0.01);
+                inner.rotation.set(-Math.PI/2, 0, 0);
+                var birdHouse = new THREE.Group();
+                birdHouse.add(outer);
+                birdHouse.add(inner);
+                birdHouse.position.set(10, -10, -7);
+                birdHouseRotator = new THREE.Object3D();
+                birdHouseRotator.add(birdHouse);
+                return birdHouseRotator;
+            }
+            
+        </script>
+    </head>
+    <body onload="init()">
+        <p><b>Use Arrow, PageUp, PageDown, and Home Keys to rotate the model.</b></p>
+        <p><label><input type="checkbox" id="animate">Animate</label></p>
+        <h2>A Few of My Favorite Things</h2>
+        <div id="canvas-holder">
+            <canvas id="glcanvas" width="1280" height="720"></canvas>
+        </div>
+    </body>
+</html>

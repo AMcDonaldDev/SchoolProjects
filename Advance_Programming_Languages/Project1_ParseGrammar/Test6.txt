@@ -1,0 +1,7 @@
+Window "Address" (400, 400) Layout Grid (2, 2, 8, 8):
+Label "City";
+TextField 20;
+Label "State";
+TextField 20;
+End;
+End;

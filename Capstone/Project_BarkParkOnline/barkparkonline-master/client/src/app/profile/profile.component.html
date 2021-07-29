@@ -1,0 +1,308 @@
+<div id="edit-profile-page" class="w-100 h-100 m-0 p-0">
+  <div
+    id="edit-profile-form-container"
+    class="d-flex flex-column w-100 h-100 m-0 p-3"
+  >
+    <!-- Profile Form -->
+    <div id="profile-editor" class="rounded">
+      <form id="profile-form" class="card" autocomplete="off">
+        <div class="card-body">
+          <h2 class="card-title">
+            {{ this.user.userProfile.fullName + "'s Profile" }}
+          </h2>
+          <form id="profile-form-contain">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="username">Username *</label>
+                  <input
+                    required
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    [(ngModel)]="this.user.credentials.username"
+                  />
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input
+                    required
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder=""
+                    [(ngModel)]="this.user.credentials.email"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <label for="password">New Password *</label>
+                  <input
+                    required
+                    type="password"
+                    class="form-control"
+                    id="change-password"
+                    name="password"
+                    placeholder=""
+                    [(ngModel)]="
+                      this.user.credentials.changePassword
+                    "
+                  />
+                </div>
+
+                <div class="col">
+                  <label for="passwordCheck">Re-Enter New Password *</label>
+                  <input
+                    required
+                    type="password"
+                    class="form-control"
+                    id="change-password-check"
+                    name="passwordCheck"
+                    placeholder=""
+                    [(ngModel)]="
+                      this.user.credentials.changePasswordCheck
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <label for="First Name">First Name *</label>
+                  <input
+                    required
+                    type="firstName"
+                    class="form-control"
+                    id="first-name"
+                    name="firstName"
+                    placeholder=""
+                    [(ngModel)]="this.user.userProfile.firstName"
+                  />
+                </div>
+
+                <div class="col">
+                  <label for="Last Name">Last Name *</label>
+                  <input
+                    required
+                    type="lastName"
+                    class="form-control"
+                    id="last-name"
+                    name="lastName"
+                    placeholder=""
+                    [(ngModel)]="this.user.userProfile.lastName"
+                  />
+                </div>
+
+                <div class="col">
+                  <label for="phone number">Phone Number</label>
+                  <div class="row">
+                    <div class="col">
+                      <input
+                        maxlength="12"
+                        class="form-control"
+                        id="phone-number"
+                        name="phoneNumber"
+                        placeholder=""
+                        [(ngModel)]="
+                          this.user.userProfile.phoneNumber
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="profile picture URL">Profile Photo URL </label>
+
+              <input
+                required
+                type="ppURL"
+                class="form-control"
+                id="profile-photo-url"
+                name="profilePictureURL"
+                placeholder=""
+                [(ngModel)]="this.user.userProfile.profilePhotoUrl"
+              />
+            </div>
+          </form>
+
+          <div class="d-flex flex-row flex-wrap w-100 justify-content-center">
+            <div>
+              <input
+                type="submit"
+                id="save-profile-btn"
+                class="btn btn-primary"
+                value="Save Profile"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- End Sign-Up Form -->
+
+    <!-- Dog Editor -->
+    <div id="dog-editor" class="rounded flex-grow-1 d-flex flex-column">
+
+      <h2 class="m-2 p-1">
+        {{ this.user.userProfile.fullName + "'s Dogs" }}
+      </h2>
+      <div class="w-100 m-0 p-2" *ngIf="this.currentDog == null">
+        You have no dogs!
+      </div>
+      <div [formGroup]="this.dogForm" *ngIf="this.currentDog != null"
+        class="row w-100 m-0 p-0 d-flex flex-row justify-content-center">
+        <!-- Dog Name -->
+        <div class="m-1 p-1">
+          <mat-form-field>
+            <mat-label>Dog Name</mat-label>
+            <input
+              id="dog-name"
+              placeholder=""
+              formControlName="dogName"
+              matInput
+              [(ngModel)]="this.currentDog.dogName"
+              required
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Dog Breed -->
+        <div class="m-1 p-1">
+          <mat-form-field>
+            <mat-label>Dog Breed</mat-label>
+            <input
+              id="dog-breed"
+              placeholder="German Shephard"
+              formControlName="dogBreed"
+              matInput
+              [(ngModel)]="this.currentDog.dogBreed"
+              required
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Dog Birthday -->
+        <div class="m-1 p-1">
+          <mat-form-field
+            color="accent"
+            appearance="fill"
+            (click)="dobPicker.open()"
+          >
+            <mat-label for="dobPicker">Birthday</mat-label>
+            <input
+              id="dog-dob"
+              matInput
+              readonly
+              required
+              [matDatepicker]="dobPicker"
+              formControlName="dogBirthday"
+              [(ngModel)]="this.currentDog.dogDob"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="dobPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #dobPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <!-- Dog Gender -->
+        <div class="m-1 p-1">
+          <mat-form-field>
+            <mat-label>Dog Gender</mat-label>
+            <mat-select readonly matInput [(value)]="this.currentDog.dogGender">
+              <mat-option value="MALE">MALE</mat-option>
+              <mat-option value="FEMALE">FEMALE</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- End Dog Fields -->
+
+      <div class="row d-flex w-100 m-0 p-0 justify-content-center">
+        <div class="mr-2">
+          <input
+            *ngIf="currentDogIsNew()"
+            type="submit"
+            id="save-dog-btn"
+            class="btn btn-primary mr-2"
+            value="Save Dog"
+            (click)="this.saveDog(this.currentDog)"
+          />
+          <input
+            *ngIf="!currentDogIsNew()"
+            type="submit"
+            id="update-dog-btn"
+            class="btn btn-primary mr-2"
+            value="Update Dog"
+            (click)="this.saveDog(this.currentDog)"
+          />
+          <input
+            *ngIf="!currentDogIsNew()"
+            type="submit"
+            id="remove-dog-btn"
+            class="btn btn-danger mr-2"
+            value="Remove Dog"
+            (click)="this.deleteDog(this.currentDog)"
+          />
+          <input
+            *ngIf="currentDogIsNew()"
+            type="submit"
+            id="cancel-dog-btn"
+            class="btn btn-danger mr-2"
+            value="Cancel"
+            (click)="this.cancelAddingDog()"
+          />
+        </div>
+        <div class="mr-2">
+          <mat-form-field *ngIf="!currentDogIsNew() && this.dogs.length > 0">
+            <mat-label>Select Dog</mat-label>
+            <mat-select
+              id="select-dog"
+              readonly
+              matInput
+              [value]="this.currentDog.dogName"
+              (selectionChange)="this.switchDog($event.value)"
+            >
+              <mat-option
+                *ngFor="let dog of this.dogs"
+                selected
+                [value]="dog"
+              >
+                {{ dog.dogName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="mr-2">
+          <button
+            (click)="this.addNewDog()"
+            id="add-dog-btn"
+            mat-mini-fab
+            color="primary"
+            *ngIf="!currentDogIsNew()"
+            aria-label="Example icon button with a plus one icon"
+          >
+            <mat-icon>plus_one</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Dog Editor -->
+  </div>
+</div>

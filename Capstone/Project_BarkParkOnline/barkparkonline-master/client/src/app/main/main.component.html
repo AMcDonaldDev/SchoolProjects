@@ -1,0 +1,36 @@
+<div id="main-page" class="w-100 h-100">
+  <div id="main-form-container" class="w-100 h-100">
+
+    <!-- main Form -->
+    <div>
+      <form id="main-form" class="card">
+        <img class="card-img-top" src="/assets/images/dog_park_home.jpeg">
+        <div class="card-body">
+          <h1 class="card-title">Welcome to Bark Park Online!</h1>
+          <h2 class="d-flex flex-row flex-wrap w-100">
+            <div id="welcome-body-contain" class="small flex-grow-1 row p-2">
+
+              <div *ngIf="!this.appService.loggedIn">
+                <a id="sign-up-btn" routerLink="/signup" routerLinkActive="active">
+                  Sign Up
+                </a>,
+                <a id="login-btn" routerLink="/login" routerLinkActive="active">
+                  Login
+                </a>, or&nbsp;
+              </div>
+              <div>
+                Check out our
+                <a id="to-calendar-btn" routerLink="/calendar" routerLinkActive="active">
+                  Calendars
+                </a>
+                for a Bark Park near you.
+              </div>
+
+            </div>
+          </h2>
+        </div>
+      </form>
+    </div> <!-- End main Form -->
+
+  </div>
+</div>

@@ -1,0 +1,32 @@
+
+::ng-deep .mat-form-field-wrapper {
+  height: 75px !important;
+}
+
+::ng-deep .mat-form-field-flex {
+  height: 55px !important;
+}
+
+#profile-editor {
+  box-shadow: 1px 1px 8px #727c7e;
+  border-radius: 10px !important;
+  text-align: center;
+}
+
+#dog-editor {
+  box-shadow: 1px 3px 10px #727c7e;
+  border-radius: 10px !important;
+  margin-top: 20px !important;
+  background-color: white;
+  height: 35%;
+  text-align: center;
+}
+
+#edit-profile-page {
+  background-color: rgb(190, 213, 233);
+}
+
+#profile-form-contain {
+  padding-left: 30px;
+  padding-right: 30px;
+}

@@ -1,0 +1,71 @@
+<!-- Top Navbar -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top nav nav-gradient">
+  <div class="order-0 mr-4">
+    <a id="logo-link" class="clickable navbar-brand site-title" routerLink="">
+      <img id="logo" width="33" src="assets/images/bpo-logo.png" />
+      Bark Park Online
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  <div class="navbar-collapse collapse order-1 mb-1 w-100">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item mr-4">
+        <div id="home-item" class="clickable" routerLink="/" routerLinkActive="active">
+          Home
+        </div>
+      </li>
+      <li class="nav-item mr-4">
+        <div id="calendar-item" class="clickable" routerLink="/calendar" routerLinkActive="active">
+          Calendar
+        </div>
+      </li>
+      <li *ngIf="!this.appService.loggedIn" class="nav-item mr-4">
+        <div id="sign-up-item" class="clickable" routerLink="/signup" routerLinkActive="active">
+          Sign Up
+        </div>
+      </li>
+      <li *ngIf="!this.appService.loggedIn" class="nav-item mr-4">
+        <div id="login-item" class="clickable" routerLink="/login" routerLinkActive="active">
+          Login
+        </div>
+      </li>
+      <li *ngIf="this.appService.loggedIn" class="nav-item">
+        <div id="visit-item" class="clickable" (click)="this.openVisitScheduler()">
+          My Visits
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <div class="logged-in-user" *ngIf="!appService.loggedIn">
+          <img id="logo" width="33" src="assets/images/default-profile-pic.png" />
+          <span id="logged-in-as">Guest</span>
+        </div>
+        <div id="dropdown-toggle" ngbDropdown *ngIf="appService.loggedIn">
+          <div id="user-full-name-clickable" class="logged-in-user" ngbDropdownToggle>
+            <img id="logo" width="33" [src]="this.user.userProfile.profilePhotoUrl" />
+            <span id="logged-in-as">{{ this.user.userProfile.fullName }}</span>
+          </div>
+          <div ngbDropdownMenu>
+            <button id="edit-profile-btn" ngbDropdownItem routerLink="/profile" routerLinkActive="active">Edit Profile</button>
+            <button id="logout-btn"  ngbDropdownItem routerLink="/logout" routerLinkActive="active">Logout</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Page Content -->
+<div id="page-container" class="container-fluid m-0">
+  <div class="row h-100">
+    <div id="content" class="col-12 m-0 p-0">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

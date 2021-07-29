@@ -1,0 +1,101 @@
+#sign-in-btn {
+  color: #007bff;
+}
+
+.small {
+  text-align: right;
+}
+
+.failed {
+  text-align: left;
+  color: rgb(187, 55, 55);
+}
+
+#sign-up-page {
+  background-image: url("/assets/images/sign-up-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#sign-up-form-container {
+  padding-top: 10vh;
+  display: flex;
+  justify-content: center;
+}
+
+#sign-up-form {
+  max-width: 1200px;
+}
+
+.card-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.center {
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+
+#line-number {
+  width:120px;
+}
+
+#back-button {
+  width: 100px;
+}
+
+#error-message {
+  color: red;
+}
+
+#dog-select-contain {
+  height: 100%;
+}
+
+#gender-contain {
+  max-width: 120px;
+}
+
+#dog-list {
+  width: 100%;
+}
+
+#select-dog {
+  overflow: hidden;
+  max-width: 200px;
+}
+
+::ng-deep .mat-datepicker-toggle {
+  color: rgb(76, 145, 187);
+}
+
+::ng-deep .mat-form-field-wrapper {
+  height: 75px !important;
+}
+
+::ng-deep .mat-form-field-flex {
+  height: 55px !important;
+}
+
+::ng-deep .mat-stepper-vertical {
+  background-color: white;
+  color: black;
+}
+
+::ng-deep .mat-step-icon-selected {
+  background-color: rgb(76, 145, 187) !important;
+}
+
+::ng-deep .mat-step-icon-state-edit {
+  background-color: rgb(220, 153, 54) !important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.password-container .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}

@@ -1,0 +1,149 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
+plugins {
+	id 'org.springframework.boot' version '2.3.3.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+	id 'eclipse'
+	id 'jacoco'
+}
+
+springBoot {
+    mainClassName = 'org.cmsc495.bpo.Application'
+}
+
+sourceSets {
+    e2e {
+        java.srcDir "$projectDir/src/test/e2e/java"
+        resources.srcDir "$projectDir/src/test/resources"
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+    test {
+        java.srcDir "$projectDir/src/test/junit/java"
+        resources.srcDir "$projectDir/src/test/resources"
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '9'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb' 
+    
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.41.0'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'junit:junit:4.13'
+	testImplementation 'org.mockito:mockito-core:2.7.22' 
+    testImplementation 'info.cukes:cucumber-java:1.2.4'
+    testImplementation 'info.cukes:cucumber-junit:1.2.4'
+    testCompile 'io.cucumber:cucumber-java:6.6.0'
+    testCompile 'io.cucumber:cucumber-junit:6.6.0'
+    testCompile 'io.cucumber:cucumber-spring:6.6.0'
+    testCompile 'io.cucumber:cucumber-junit-platform-engine:6.6.0'
+
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.3'
+    runtime group: 'com.fasterxml.jackson.module', name: 'jackson-modules-java8', version: '2.8.5', ext: 'pom'
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+        extendsFrom e2eRuntime
+    }
+    e2eImplementation {
+        extendsFrom testImplementation
+    }
+    e2eCompile {
+        extendsFrom testImplementation
+    }
+    e2eRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task e2e(type: Test) {
+    testClassesDirs = sourceSets.e2e.output.classesDirs
+    classpath = sourceSets.e2e.runtimeClasspath
+}
+
+check.dependsOn e2e
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+	reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+task cucumber() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.e2e.output
+            args = ['--plugin', 'pretty', '--glue', 'gradle.cucumber', 'src/test/resources/features']
+        }
+    }
+}
+
+tasks.withType(Test) {
+    testLogging {
+        // set options for log level LIFECYCLE
+        events TestLogEvent.FAILED,
+               TestLogEvent.PASSED,
+               TestLogEvent.SKIPPED,
+               TestLogEvent.STANDARD_OUT
+        exceptionFormat TestExceptionFormat.FULL
+        showExceptions true
+        showCauses true
+        showStackTraces true
+
+        // set options for log level DEBUG and INFO
+        debug {
+            events TestLogEvent.STARTED,
+                   TestLogEvent.FAILED,
+                   TestLogEvent.PASSED,
+                   TestLogEvent.SKIPPED,
+                   TestLogEvent.STANDARD_ERROR,
+                   TestLogEvent.STANDARD_OUT
+            exceptionFormat TestExceptionFormat.FULL
+        }
+        info.events = debug.events
+        info.exceptionFormat = debug.exceptionFormat
+
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} passed, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped)"
+                def startItem = '|  ', endItem = '  |'
+                def repeatLength = startItem.length() + output.length() + endItem.length()
+                println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+            }
+        }
+    }
+}
+
+// Causes tests to be run again even if no changes are made
+test.outputs.upToDateWhen {false}
+e2e.outputs.upToDateWhen {false}

@@ -1,0 +1,386 @@
+<div id="sign-up-page" class="w-100 h-100 m-0 p-0">
+  <div id="sign-up-form-container" class="w-100 h-100">
+    <!-- Sign-Up Form -->
+    <div>
+      <form id="sign-up-form" class="card" (keydown)="keyPressed($event)">
+        <div class="card-body">
+          <h2 class="card-title">Sign Up Today!</h2>
+
+          <!-- First Step -->
+          <mat-vertical-stepper [linear]="true" #stepper>
+            <mat-step [stepControl]="firstFormGroup">
+              <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Your Credentials</ng-template>
+
+                <!-- Username and Email -->
+                <div class="row">
+                  <div class="col-5">
+                    <mat-form-field>
+                      <mat-label>Username</mat-label>
+                      <input
+                        id="username"
+                        matInput
+                        placeholder="6-20 Characters"
+                        formControlName="username"
+                        [(ngModel)]="this.user.credentials.username"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-7">
+                    <mat-form-field class="longer-form-field">
+                      <mat-label>Email</mat-label>
+                      <input
+                        id="email"
+                        matInput
+                        autocomplete="email"
+                        placeholder="Example: matt@hotmail.com"
+                        formControlName="email"
+                        [(ngModel)]="this.user.credentials.email"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- Passwords -->
+                <div class="row">
+                  <div class="col-6">
+                    <mat-form-field>
+                      <mat-label>Password</mat-label>
+                      <input
+                        id="password"
+                        matInput
+                        [type]="hide ? 'password' : 'text'"
+                        autocomplete="new-password"
+                        placeholder="Min. 8 Characters"
+                        formControlName="password"
+                        [(ngModel)]="this.user.credentials.password"
+                        required
+                      />
+                      <button
+                        mat-icon-button
+                        matSuffix
+                        (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide"
+                      >
+                        <mat-icon>{{
+                          hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field>
+                      <mat-label>Verify Password</mat-label>
+                      <input
+                        id="password-check"
+                        matInput
+                        [type]="hide ? 'password' : 'text'"
+                        autocomplete="new-password"
+                        placeholder="Min. 8 Characters"
+                        formControlName="passwordCheck"
+                        [(ngModel)]="
+                          this.user.credentials.passwordCheck
+                        "
+                        required
+                      />
+                      <button
+                        mat-icon-button
+                        matSuffix
+                        (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide"
+                      >
+                        <mat-icon>{{
+                          hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="
+                    !this.firstFormGroup.invalid && this.firstGroupFinished()
+                  "
+                >
+                  <button
+                    id="step-2"
+                    mat-raised-button
+                    color="primary"
+                    mat-button
+                    matStepperNext
+                  >
+                    Next
+                  </button>
+                </div>
+              </form>
+            </mat-step>
+
+            <!-- Second Step -->
+            <mat-step [stepControl]="secondFormGroup">
+              <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Your Profile</ng-template>
+
+                <div class="row">
+                  <div class="col-6">
+                    <mat-form-field>
+                      <mat-label>First Name</mat-label>
+                      <input
+                        id="first-name"
+                        autocomplete="cc-given-name"
+                        placeholder=""
+                        formControlName="firstName"
+                        matInput
+                        [(ngModel)]="this.user.userProfile.firstName"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field>
+                      <mat-label>Last Name</mat-label>
+                      <input
+                        id="last-name"
+                        autocomplete="cc-family-name"
+                        placeholder=""
+                        formControlName="lastName"
+                        matInput
+                        [(ngModel)]="this.user.userProfile.lastName"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Phone number</mat-label>
+                    <tel-input
+                      matInput
+                      formControlName="phoneNumber"
+                    ></tel-input>
+                    <mat-icon matSuffix>phone</mat-icon>
+                    <mat-hint>Optional</mat-hint>
+                  </mat-form-field>
+                </div>
+
+                <div class="row mt-2">
+                  <div class="col-2">
+                    <button mat-button mat-raised-button matStepperPrevious>
+                      Back
+                    </button>
+                  </div>
+                  <div *ngIf="!this.secondFormGroup.invalid" class="col-2">
+                    <button
+                      id="step-3"
+                      mat-raised-button
+                      color="primary"
+                      mat-button
+                      matStepperNext
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </mat-step>
+
+            <!-- Third Step -->
+            <mat-step [stepControl]="thirdFormGroup">
+              <form [formGroup]="thirdFormGroup">
+                <ng-template matStepLabel>Add Dogs</ng-template>
+
+                <!-- Dog Name & Breed -->
+                <div class="row">
+                  <div class="col-6">
+                    <mat-form-field>
+                      <mat-label>Dog Name</mat-label>
+                      <input
+                        id="dog-name"
+                        placeholder=""
+                        formControlName="dogName"
+                        matInput
+                        [(ngModel)]="this.currentDog.dogName"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field>
+                      <mat-label>Dog Breed</mat-label>
+                      <input
+                        id="dog-breed"
+                        placeholder="German Shephard"
+                        formControlName="dogBreed"
+                        matInput
+                        [(ngModel)]="this.currentDog.dogBreed"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- Dog Dob & Gender -->
+                <div class="row">
+                  <div class="col-6">
+                    <mat-form-field
+                      color="accent"
+                      appearance="fill"
+                      (click)="dobPicker.open()"
+                    >
+                      <mat-label for="dobPicker">Birthday</mat-label>
+                      <input
+                        id="dog-dob"
+                        matInput
+                        readonly
+                        required
+                        [matDatepicker]="dobPicker"
+                        formControlName="dogBirthday"
+                        [(ngModel)]="this.currentDog.dogDob"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="dobPicker"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #dobPicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field>
+                      <mat-label>Dog Gender</mat-label>
+                      <mat-select
+                        readonly
+                        matInput
+                        [(value)]="this.currentDog.dogGender"
+                      >
+                        <mat-option selected value="MALE">MALE</mat-option>
+                        <mat-option value="FEMALE">FEMALE</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row mt-2">
+                  <div class="col-2">
+                    <button mat-button mat-raised-button matStepperPrevious>
+                      Back
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <button
+                      *ngIf="
+                        !this.thirdFormGroup.invalid &&
+                        this.thirdGroupFinished()
+                      "
+                      id="step-4"
+                      mat-raised-button
+                      color="primary"
+                      mat-button
+                      matStepperNext
+                    >
+                      Next
+                    </button>
+                  </div>
+                  <div class="col-4 ml-auto">
+                    <mat-form-field *ngIf="this.dogs.length > 1">
+                      <mat-label>Select Dog</mat-label>
+                      <mat-select
+                        id="select-dog"
+                        readonly
+                        matInput
+                        [value]="this.currentDog.dogName"
+                        (selectionChange)="this.switchDog($event.value)"
+                      >
+                        <mat-option
+                          *ngFor="let dog of this.dogs"
+                          selected
+                          [value]="dog.dogName"
+                        >
+                          {{ dog.dogName }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div
+                    class="col-2"
+                    *ngIf="
+                      !this.thirdFormGroup.invalid &&
+                      this.thirdGroupFinished() &&
+                      this.validationService.validateDogs(this.dogs)
+                    "
+                  >
+                    <button
+                      (click)="this.addNewDog()"
+                      id="add-dog"
+                      mat-mini-fab
+                      color="primary"
+                      aria-label="Example icon button with a plus one icon"
+                    >
+                      <mat-icon>plus_one</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </mat-step>
+
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              <p>That's all we need for now!</p>
+              <div class="container-fluid">
+                <input
+                  *ngIf="
+                    !this.firstFormGroup.invalid &&
+                    !this.secondFormGroup.invalid &&
+                    !this.thirdFormGroup.invalid &&
+                    this.firstGroupFinished() &&
+                    this.secondGroupFinished() &&
+                    this.thirdGroupFinished()
+                  "
+                  type="submit"
+                  id="sign-up-btn"
+                  class="btn btn-primary"
+                  value="Sign Up"
+                  (click)="this.signUp(); this.appService.login(credentials);"
+                />
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+
+          <div class="d-flex flex-row flex-wrap w-100">
+            <div class="mr-auto">
+              <input
+                mat-raised-button
+                type="back"
+                id="back-button"
+                routerLink="/"
+                routerLinkActive="active"
+                class="btn btn-default"
+                value="Back"
+              />
+            </div>
+
+            <div id="error-message" *ngIf="this.showErrors" class="danger">
+              {{ this.errorMessage }}
+              
+            </div>
+
+            <div class="ml-auto p-1 align-self-center">
+              Already a member?
+              <a
+                id="sign-in-btn"
+                class="link"
+                routerLink="/login"
+                routerLinkActive="active"
+                >Sign in</a
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- End Sign-Up Form -->
+  </div>
+</div>

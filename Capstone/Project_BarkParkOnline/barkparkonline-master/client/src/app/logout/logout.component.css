@@ -1,0 +1,9 @@
+#logout-container {
+  padding-top: 10vh;
+  display: flex;
+  justify-content: center;
+}
+
+#logout-contain {
+  width: 640px;
+}

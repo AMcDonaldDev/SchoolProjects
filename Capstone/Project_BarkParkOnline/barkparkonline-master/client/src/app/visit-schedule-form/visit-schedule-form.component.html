@@ -1,0 +1,93 @@
+<head>
+  <style>
+    .md-datepicker-calendar-pane {
+      z-index: 1200;
+    }
+  </style>
+</head>
+<div id="visit-schedule-page" class="w-100 h-100 m-0 p-0">
+  <div id="visit-schedule-form-container" class="w-100 h-100">
+    <!-- visit-schedule Form -->
+    <div>
+      <form id="visit-schedule-form" class="card">
+        <div class="card-body">
+          <h2 class="card-title">Schedule a New Visit to {{ this.getCurrentParkName() }}</h2>
+          <form>
+            <div class="row d-flex flex-column h-100 w-100">
+              <div
+                class="form-group d-flex flex-row justify-content-center w-100 m-0 p-2"
+              >
+                <div>
+                  <mat-form-field>
+                    <mat-label>Visit Date and Time</mat-label>
+                    <input
+                      id="visit-datetime"
+                      matInput
+                      [ngxMatDatetimePicker]="picker"
+                      placeholder="Choose a date"
+                      [formControl]="dateControl"
+                      [min]="minDate"
+                      [max]="maxDate"
+                      [disabled]="disabled"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker
+                      #picker
+                      [showSpinners]="showSpinners"
+                      [showSeconds]="showSeconds"
+                      [stepHour]="stepHour"
+                      [stepMinute]="stepMinute"
+                      [stepSecond]="stepSecond"
+                      [touchUi]="touchUi"
+                      [color]="color"
+                      [enableMeridian]="enableMeridian"
+                    >
+                    </ngx-mat-datetime-picker>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-2">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Dogs</mat-label>
+                    <mat-select
+                      id="select-dog"
+                      multiple
+                      [(ngModel)]="this.dogVisitList"
+                      [ngModelOptions]="{ standalone: true }"
+                    >
+                      <mat-option
+                        id="dog-visit-list"
+                        *ngFor="let dog of this.user.userProfile.dogs"
+                        [value]="dog.dogName"
+                        >{{ dog.dogName }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="d-flex flex-row justify-content-center w-100 m-0 p-2">
+                <input
+                  type="addVisit"
+                  id="add-visit"
+                  class="btn btn-success mr-2"
+                  value="Add Visit"
+                  (click)="this.addVisit()"
+                />
+                <input
+                  type="cancelVisit"
+                  id="cancel-visit"
+                  class="btn btn-danger"
+                  value="Cancel"
+                  (click)="close()"
+                />
+              </div>
+              <!-- End visit-schedule Form -->
+            </div>
+          </form>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

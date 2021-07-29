@@ -1,0 +1,19 @@
+2014 Employee McDonald,Allison 3000
+2015 Employee McDonald,Allison 4500
+2014 Salesman Dublin,John 3000 890000
+2015 Salesman Dublin,John 3500 1250000
+2014 Executive Hunter,Gabe 7000 47
+2015 Executive Hunter,Gabe 8750 53
+2014 Salesman Smith,John 2500 50000
+2014 Employee Williams,Adam 2000
+2014 Executive Johnson,Gloria 5000 60
+2015 Employee William,Adam 2500
+2015 Salesman Smith,Justin 3000 1500000
+2015 Executive Johnson,Gloria 6500 50
+2015 Executive Davis,Thomas 10000 46
+2015 Salesman Lee,Andrea 4500 942000
+2015 Employee Walker,Martin 5000
+2015 Employee Jackson,Kevin 4000
+2014 Executive Davis,Thomas 9500 54
+2014 Salesman Lee,Andrea 4000 623000
+2014 Employee Walker,Martin 4200

@@ -1,0 +1,12 @@
+
+.card-title {
+  text-align: center;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  height: 75px !important;
+}
+
+::ng-deep .mat-form-field-flex {
+  height: 55px !important;
+}

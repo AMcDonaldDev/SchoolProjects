@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+/* angular-cli file: src/styles.css */
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+::ng-deep .cdk-overlay-container mat-datepicker-content{
+  z-index:2000 !important;
+}
+
+::ng-deep .cdk-overlay-container{ z-index:2000 !important;}
+
+.cdk-overlay-container{ z-index: 1200 !important; }
+
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+.clickable:hover {
+  cursor: pointer;
+}
+
+.mat-bottom-sheet-container-xlarge {
+  min-width: 70vw !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: "Titillium Web", "Helvetica Neue", sans-serif !important; }

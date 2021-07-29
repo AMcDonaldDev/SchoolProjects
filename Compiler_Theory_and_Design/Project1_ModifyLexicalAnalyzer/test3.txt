@@ -1,0 +1,6 @@
+-- Function with three lexical errors
+
+function main returns integer;
+begin
+    7 $ 2 ^ (20.0.2 + 4);
+end;

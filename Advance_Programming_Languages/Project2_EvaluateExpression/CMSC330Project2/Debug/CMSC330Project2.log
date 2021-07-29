@@ -1,0 +1,12 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (CMSC330Project2.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  CMSC330Project2.cpp
+  operand.cpp
+c:\users\amcdo\onedrive\01 umuc course work\codingprojects\schoolprojects\advance_programming_languages\advprogramp2_evaluateexpression\cmsc330project2\literal.h(14): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+  parse.cpp
+  subexpression.cpp
+  symboltable.cpp
+c:\users\amcdo\onedrive\01 umuc course work\codingprojects\schoolprojects\advance_programming_languages\advprogramp2_evaluateexpression\cmsc330project2\symboltable.cpp(14): warning C4018: '<': signed/unsigned mismatch
+  variable.cpp
+c:\users\amcdo\onedrive\01 umuc course work\codingprojects\schoolprojects\advance_programming_languages\advprogramp2_evaluateexpression\cmsc330project2\variable.cpp(14): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+  CMSC330Project2.vcxproj -> C:\Users\amcdo\OneDrive\01 UMUC Course Work\CodingProjects\SchoolProjects\Advance_Programming_Languages\AdvProgramP2_EvaluateExpression\Debug\Project2EvaluateExpression.exe

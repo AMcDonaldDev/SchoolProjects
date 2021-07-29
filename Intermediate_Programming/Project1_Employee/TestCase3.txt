@@ -1,0 +1,7 @@
+2015 Executive Davis,Thomas 10000 46
+2015 Salesman Lee,Andrea 4500 942000
+2015 Employee Walker,Martin 5000
+2015 Employee Jackson,Kevin 4000
+2014 Executive Davis,Thomas 9500 54
+2014 Salesman Lee,Andrea 4000 623000
+2014 Employee Walker,Martin 4200

@@ -1,0 +1,6 @@
+2014 Salesman Smith,John 2500 50000
+2014 Employee Williams,Adam 2000
+2014 Executive Johnson,Gloria 5000 60
+2015 Employee William,Adam 2500
+2015 Salesman Smith,Justin 3000 1500000
+2015 Executive Johnson,Gloria 6500 50

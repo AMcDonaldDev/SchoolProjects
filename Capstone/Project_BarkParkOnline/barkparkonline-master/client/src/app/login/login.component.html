@@ -1,0 +1,39 @@
+<div id="login-page" class="w-100 h-100">
+  <div id="login-form-container" class="w-100 h-100">
+
+    <!-- Login Form -->
+    <div>
+      <form id="login-form" class="card" (keydown)="keyPressed($event)">
+        <img class="card-img-top" src="assets/images/login-form-pic.jpg">
+        <div class="card-body">
+          <h2 class="card-title">Welcome, Please Login</h2>
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Username / Email</label>
+              <input required type="text" autocomplete="email | username"  class="form-control" id="username" name="username" [(ngModel)]="credentials.username">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input required type="password"  autocomplete="current-password" class="form-control" id="password" name="password" placeholder="" [(ngModel)]="credentials.password">
+            </div>
+          </form>
+          <div class="d-flex flex-row flex-wrap w-100">
+            <div>
+              <input type="submit" id="login-btn" class="btn btn-primary" (click)="appService.login(credentials)" value="Login">
+            </div>
+            <div class="small failed ml-3 mr-auto p-1" *ngIf="appService.loginFailed">
+              Login Failed
+            </div>
+            <div class="small flex-grow-1 ml-auto p-1">
+              Not a member?
+              <a id="sign-up-btn" routerLink="/signup" routerLinkActive="active">Sign up</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div> <!-- End Login Form -->
+
+  </div>
+</div>
+
+

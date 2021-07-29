@@ -1,0 +1,6 @@
+Winodw "Test 4" (300, 500) Layout Flow:
+Label "Choose One";
+Button "GO!";
+Button "STOP!";
+End;
+End.
